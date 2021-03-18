@@ -7,5 +7,3 @@
 
 # util
 golang utils for common use
-
-59378f21-331c-40ff-95b1-b225bfbeaaff

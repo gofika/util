@@ -9,7 +9,7 @@ import (
 // WriteFile write bytes to file. will create all path dir if not exists
 func WriteFile(filename string, data []byte) (err error) {
 	EnsureDirExists(filename)
-	return ioutil.WriteFile(filename, data, os.ModeAppend)
+	return ioutil.WriteFile(filename, data, 0777)
 }
 
 // IsExist return true if file exists
