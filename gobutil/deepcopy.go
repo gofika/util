@@ -29,4 +29,3 @@ func DeepCopy(dst, src interface{}) error {
 	}
 	return gob.NewDecoder(&buf).Decode(dst)
 }
-
