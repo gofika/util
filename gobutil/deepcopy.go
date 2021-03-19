@@ -8,20 +8,20 @@ import (
 // DeepCopy clone object. can clone without same type
 //
 // Example:
-//     type A struct {
+//     type Foo struct {
 //         Name string
 //         Value int
 //     }
 //
-//     type B struct {
+//     type Bar struct {
 //         Name string
 //         Value int
 //     }
 //
-//     a := &A { Name: "Jason", 100}
-//     var b B
-//     DeepCopy(&b, a)
-//     fmt.Printf("%+v\n", b)
+//     foo := &Foo { "Jason", 100}
+//     var bar Bar
+//     DeepCopy(&bar, foo)
+//     fmt.Printf("%+v\n", bar)
 func DeepCopy(dst, src interface{}) error {
 	var buf bytes.Buffer
 	if err := gob.NewEncoder(&buf).Encode(src); err != nil {

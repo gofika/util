@@ -6,8 +6,8 @@ import (
 	"os"
 )
 
-// LoadFile load gob stream from file
-func LoadFile(filename string, e interface{}) error {
+// ReadFile read struct from gob stream file
+func ReadFile(filename string, e interface{}) error {
 	f, err := os.Open(filename)
 	if err != nil {
 		return err
@@ -20,11 +20,9 @@ func LoadFile(filename string, e interface{}) error {
 	return nil
 }
 
-// SaveFile save gob stream to file
-func SaveFile(filename string, e interface{}) (err error) {
-	fileutil.EnsureDirExists(filename)
-	var f *os.File
-	f, err = os.Create(filename)
+// WriteFile write struct to gob stream file
+func WriteFile(filename string, e interface{}) error {
+	f, err := fileutil.OpenWrite(filename)
 	if err != nil {
 		return err
 	}
