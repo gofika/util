@@ -39,3 +39,7 @@ func (s *FileUtilSuite) TestDeleteAll(c *C) {
 	DeleteAll(path.Join(tempDir, "/foo"))
 	c.Assert(IsExist(path.Join(tempDir, "/foo/bar")), Equals, false)
 }
+
+func (s *FileUtilSuite) TestCurrentDir(c *C) {
+	c.Assert(CurrentDir(), NotNil)
+}
