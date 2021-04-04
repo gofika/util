@@ -13,7 +13,9 @@ type RegexpUtilSuite struct{}
 var _ = Suite(&RegexpUtilSuite{})
 
 func (s *RegexpUtilSuite) TestMatch(c *C) {
-	c.Assert(Match(`Foo(.+)`, "Foobar"), Equals, "bar")
+	bar, matched := Match(`Foo(.+)`, "Foobar")
+	c.Assert(matched, Equals, true)
+	c.Assert(bar, Equals, "bar")
 }
 
 func (s *RegexpUtilSuite) TestIsMatch(c *C) {
