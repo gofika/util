@@ -6,6 +6,7 @@
 [![donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](about::blank)
 
 # util
+
 golang utils for common use
 
 ## Basic Usage
@@ -19,6 +20,7 @@ go get github.com/leaker/util
 ```
 
 ### FileUtil
+
 ```go
 package main
 
@@ -35,18 +37,19 @@ func main() {
 	if err != nil {
 		fmt.Printf("Write file failed. err: %s\n", err.Error())
 		return
-    }
-    // check file exist
+	}
+	// check file exist
 	if !fileutil.IsExist(name) {
 		fmt.Printf("file %s not exist.\n", name)
 		return
-    }
-    // clear temp file
-    fileutil.DeleteAll("foo")
+	}
+	// clear temp file
+	fileutil.DeleteAll("foo")
 }
 ```
 
 ### GobUtil
+
 ```go
 package main
 
@@ -71,13 +74,14 @@ func main() {
 	if err != nil {
 		fmt.Printf("DeepCopy failed. err: %s\n", err.Error())
 		return
-    }
+	}
 	fmt.Printf("bar.Name: %s\n", bar.Name)
 	fmt.Printf("bar.Value: %d\n", bar.Value)
 }
 ```
 
 ### JsonUtil
+
 ```go
 package main
 
@@ -109,7 +113,7 @@ func main() {
 	if err != nil {
 		fmt.Printf("ReadFile failed. err: %s\n", err.Error())
 		return
-    }
+	}
 	fmt.Printf("bar.Name: %s\n", bar.Name)
 	fmt.Printf("bar.Value: %d\n", bar.Value)
 }
