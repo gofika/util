@@ -1,17 +1,13 @@
 package gobutil
 
 import (
-	. "gopkg.in/check.v1"
 	"io/ioutil"
 	"path"
 	"testing"
+
+	"github.com/leaker/util/fileutil"
+	"github.com/stretchr/testify/assert"
 )
-
-func Test(t *testing.T) { TestingT(t) }
-
-type GobUtilSuite struct{}
-
-var _ = Suite(&GobUtilSuite{})
 
 var (
 	tempDir, _ = ioutil.TempDir("", "util")
@@ -22,7 +18,7 @@ type Foo struct {
 	Value int
 }
 
-func (s *GobUtilSuite) TestDeepCopy(c *C) {
+func TestDeepCopy(t *testing.T) {
 	type Bar struct {
 		Name  string
 		Value int
@@ -30,19 +26,26 @@ func (s *GobUtilSuite) TestDeepCopy(c *C) {
 	foo := &Foo{"Jason", 100}
 	var bar Bar
 	err := DeepCopy(&bar, foo)
-	c.Assert(err, IsNil)
-	c.Assert(bar.Name, Equals, foo.Name)
-	c.Assert(bar.Value, Equals, foo.Value)
+	if !assert.Nil(t, err) {
+		return
+	}
+	assert.Equal(t, bar.Name, foo.Name)
+	assert.Equal(t, bar.Value, foo.Value)
 }
 
-func (s *GobUtilSuite) TestFile(c *C) {
+func TestFile(t *testing.T) {
 	tempName := path.Join(tempDir, "foo.gob")
 	foo := &Foo{"Jason", 100}
 
 	err := WriteFile(tempName, foo)
-	c.Assert(err, IsNil)
+	if !assert.Nil(t, err) {
+		return
+	}
+	defer fileutil.Delete(tempName)
 	var bar Foo
 	err = ReadFile(tempName, &bar)
-	c.Assert(err, IsNil)
-	c.Assert(bar.Name, Equals, "Jason")
+	if !assert.Nil(t, err) {
+		return
+	}
+	assert.Equal(t, bar.Name, "Jason")
 }

@@ -1,59 +1,68 @@
 package httputil
 
 import (
-	"github.com/leaker/util/fileutil"
-	"github.com/leaker/util/jsonutil"
-	. "gopkg.in/check.v1"
 	"io/ioutil"
 	"net/http"
 	"path"
-	"strings"
 	"testing"
+
+	"github.com/leaker/util/fileutil"
+	"github.com/leaker/util/jsonutil"
+	"github.com/stretchr/testify/assert"
 )
-
-func Test(t *testing.T) { TestingT(t) }
-
-type HttpUtilSuite struct{}
-
-var _ = Suite(&HttpUtilSuite{})
 
 var (
 	tempDir, _ = ioutil.TempDir("", "util")
 )
 
-func (s *HttpUtilSuite) TestReadString(c *C) {
+func TestReadString(t *testing.T) {
 	resp, err := http.Get("https://httpbin.org/get")
-	c.Assert(err, IsNil)
+	if !assert.Nil(t, err) {
+		return
+	}
 
 	body, err := ReadString(resp)
-	c.Assert(err, IsNil)
-	c.Assert(strings.Contains(body, `"url": "https://httpbin.org/get"`), Equals, true)
+	if !assert.Nil(t, err) {
+		return
+	}
+	assert.Contains(t, body, `"url": "https://httpbin.org/get"`)
+	// c.Assert(strings.Contains(body, `"url": "https://httpbin.org/get"`), Equals, true)
 }
 
-func (s *HttpUtilSuite) TestReadJson(c *C) {
+func TestReadJson(t *testing.T) {
 	resp, err := http.Get("https://httpbin.org/get")
-	c.Assert(err, IsNil)
+	if !assert.Nil(t, err) {
+		return
+	}
 	type ResponseBody struct {
 		Url string `json:"url"`
 	}
 	var respBody ResponseBody
 	err = ReadJson(resp, &respBody)
-	c.Assert(err, IsNil)
-	c.Assert(respBody.Url, Equals, "https://httpbin.org/get")
+	if !assert.Nil(t, err) {
+		return
+	}
+	assert.Equal(t, respBody.Url, "https://httpbin.org/get")
 }
 
-func (s *HttpUtilSuite) TestReadFile(c *C) {
+func TestReadFile(t *testing.T) {
 	resp, err := http.Get("https://httpbin.org/get")
-	c.Assert(err, IsNil)
+	if !assert.Nil(t, err) {
+		return
+	}
 	type ResponseBody struct {
 		Url string `json:"url"`
 	}
 	var respBody ResponseBody
 	tempName := path.Join(tempDir, "foo.json")
 	_, err = ReadFile(resp, tempName)
-	c.Assert(err, IsNil)
+	if !assert.Nil(t, err) {
+		return
+	}
 	defer fileutil.Delete(tempName)
 	err = jsonutil.ReadFile(tempName, &respBody)
-	c.Assert(err, IsNil)
-	c.Assert(respBody.Url, Equals, "https://httpbin.org/get")
+	if !assert.Nil(t, err) {
+		return
+	}
+	assert.Equal(t, respBody.Url, "https://httpbin.org/get")
 }

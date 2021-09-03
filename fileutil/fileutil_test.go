@@ -1,45 +1,50 @@
 package fileutil
 
 import (
-	. "gopkg.in/check.v1"
 	"io/ioutil"
 	"path"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
-
-func Test(t *testing.T) { TestingT(t) }
-
-type FileUtilSuite struct{}
-
-var _ = Suite(&FileUtilSuite{})
 
 var (
 	tempDir, _ = ioutil.TempDir("", "util")
 )
 
-func (s *FileUtilSuite) TestWriteFile(c *C) {
+func TestWriteFile(t *testing.T) {
 	tempName := path.Join(tempDir, "foo.txt")
 	data := []byte("Hello")
 	err := WriteFile(tempName, data)
-	c.Assert(err, IsNil)
+	if !assert.Nil(t, err) {
+		return
+	}
 	defer Delete(tempName)
-	c.Assert(IsExist(tempName), Equals, true)
+	if !assert.True(t, IsExist(tempName)) {
+		return
+	}
 	rData, err := ioutil.ReadFile(tempName)
-	c.Assert(err, IsNil)
-	c.Assert(data, DeepEquals, rData)
+	if !assert.Nil(t, err) {
+		return
+	}
+	assert.EqualValues(t, data, rData)
 }
 
-func (s *FileUtilSuite) TestDeleteAll(c *C) {
+func TestDeleteAll(t *testing.T) {
 	tempName := path.Join(tempDir, "/foo/bar/baz.js")
 	f, err := OpenWrite(tempName)
-	c.Assert(err, IsNil)
+	if !assert.Nil(t, err) {
+		return
+	}
 	defer DeleteAll(tempDir)
 	err = f.Close()
-	c.Assert(err, IsNil)
+	if !assert.Nil(t, err) {
+		return
+	}
 	DeleteAll(path.Join(tempDir, "/foo"))
-	c.Assert(IsExist(path.Join(tempDir, "/foo/bar")), Equals, false)
+	assert.False(t, IsExist(path.Join(tempDir, "/foo/bar")))
 }
 
-func (s *FileUtilSuite) TestCurrentDir(c *C) {
-	c.Assert(CurrentDir(), NotNil)
+func TestCurrentDir(t *testing.T) {
+	assert.True(t, CurrentDir() != "")
 }

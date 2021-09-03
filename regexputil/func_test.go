@@ -3,21 +3,17 @@ package regexputil
 import (
 	"testing"
 
-	. "gopkg.in/check.v1"
+	"github.com/stretchr/testify/assert"
 )
 
-func Test(t *testing.T) { TestingT(t) }
-
-type RegexpUtilSuite struct{}
-
-var _ = Suite(&RegexpUtilSuite{})
-
-func (s *RegexpUtilSuite) TestMatch(c *C) {
+func TestMatch(t *testing.T) {
 	bar, matched := Match(`Foo(.+)`, "Foobar")
-	c.Assert(matched, Equals, true)
-	c.Assert(bar, Equals, "bar")
+	if !assert.True(t, matched) {
+		return
+	}
+	assert.Equal(t, bar, "bar")
 }
 
-func (s *RegexpUtilSuite) TestIsMatch(c *C) {
-	c.Assert(IsMatch(`Foo(.+)`, "Foobar"), Equals, true)
+func TestIsMatch(t *testing.T) {
+	assert.True(t, IsMatch(`Foo(.+)`, "Foobar"))
 }
