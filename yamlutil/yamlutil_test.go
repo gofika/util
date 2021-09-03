@@ -43,7 +43,7 @@ value: 100
 `
 	foo := &Foo{
 		Name:  "Jason",
-		Value: 1001,
+		Value: 100,
 	}
 	tempName := path.Join(tempDir, "foo.yml")
 	err := WriteFileIndent(tempName, foo, 2)
