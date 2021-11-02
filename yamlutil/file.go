@@ -1,7 +1,7 @@
 package yamlutil
 
 import (
-	"github.com/leaker/util/fileutil"
+	"github.com/gofika/util/fileutil"
 	"gopkg.in/yaml.v3"
 	"os"
 )

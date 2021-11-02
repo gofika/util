@@ -1,8 +1,8 @@
-[![codecov](https://codecov.io/gh/leaker/util/branch/main/graph/badge.svg)](https://codecov.io/gh/leaker/util)
-[![Build Status](https://github.com/leaker/util/workflows/build/badge.svg)](https://github.com/leaker/util)
-[![go.dev](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/leaker/util)
-[![Go Report Card](https://goreportcard.com/badge/github.com/leaker/util)](https://goreportcard.com/report/github.com/leaker/util)
-[![Licenses](https://img.shields.io/badge/license-bsd-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
+[![codecov](https://codecov.io/gh/gofika/util/branch/main/graph/badge.svg)](https://codecov.io/gh/gofika/util)
+[![Build Status](https://github.com/gofika/util/workflows/build/badge.svg)](https://github.com/gofika/util)
+[![go.dev](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/gofika/util)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gofika/util)](https://goreportcard.com/report/github.com/gofika/util)
+[![Licenses](https://img.shields.io/github/license/gofira/util)](LICENSE)
 
 # util
 
@@ -15,7 +15,7 @@ golang utils for common use
 To get the package, execute:
 
 ```bash
-go get github.com/leaker/util
+go get github.com/gofika/util
 ```
 
 ### FileUtil
@@ -25,7 +25,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/leaker/util/fileutil"
+	"github.com/gofika/util/fileutil"
 )
 
 func main() {
@@ -54,7 +54,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/leaker/util/gobutil"
+	"github.com/gofika/util/gobutil"
 )
 
 func main() {
@@ -86,7 +86,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/leaker/util/jsonutil"
+	"github.com/gofika/util/jsonutil"
 )
 
 type Foo struct {

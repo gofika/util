@@ -5,7 +5,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/leaker/util/fileutil"
+	"github.com/gofika/util/fileutil"
 	"github.com/stretchr/testify/assert"
 )
 

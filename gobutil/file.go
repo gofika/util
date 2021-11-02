@@ -2,7 +2,7 @@ package gobutil
 
 import (
 	"encoding/gob"
-	"github.com/leaker/util/fileutil"
+	"github.com/gofika/util/fileutil"
 	"os"
 )
 

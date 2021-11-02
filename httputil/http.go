@@ -2,8 +2,8 @@ package httputil
 
 import (
 	"encoding/json"
-	"github.com/leaker/util/fileutil"
-	"github.com/leaker/util/regexputil"
+	"github.com/gofika/util/fileutil"
+	"github.com/gofika/util/regexputil"
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/encoding/ianaindex"
 	"golang.org/x/text/transform"

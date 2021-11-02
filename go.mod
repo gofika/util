@@ -1,4 +1,4 @@
-module github.com/leaker/util
+module github.com/gofika/util
 
 go 1.17
 

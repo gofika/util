@@ -2,7 +2,7 @@ package jsonutil
 
 import (
 	"encoding/json"
-	"github.com/leaker/util/fileutil"
+	"github.com/gofika/util/fileutil"
 	"os"
 )
 

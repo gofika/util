@@ -6,8 +6,8 @@ import (
 	"path"
 	"testing"
 
-	"github.com/leaker/util/fileutil"
-	"github.com/leaker/util/jsonutil"
+	"github.com/gofika/util/fileutil"
+	"github.com/gofika/util/jsonutil"
 	"github.com/stretchr/testify/assert"
 )
 
