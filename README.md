@@ -2,7 +2,7 @@
 [![Build Status](https://github.com/gofika/util/workflows/build/badge.svg)](https://github.com/gofika/util)
 [![go.dev](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/gofika/util)
 [![Go Report Card](https://goreportcard.com/badge/github.com/gofika/util)](https://goreportcard.com/report/github.com/gofika/util)
-[![Licenses](https://img.shields.io/github/license/gofira/util)](LICENSE)
+[![Licenses](https://img.shields.io/github/license/gofika/util)](LICENSE)
 
 # util
 
