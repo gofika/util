@@ -2,22 +2,36 @@ package httputil
 
 import (
 	"encoding/json"
-	"github.com/gofika/util/fileutil"
-	"github.com/gofika/util/regexputil"
-	"golang.org/x/text/encoding"
-	"golang.org/x/text/encoding/ianaindex"
-	"golang.org/x/text/transform"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/gofika/util/fileutil"
+	"github.com/gofika/util/regexputil"
+	"go.uber.org/multierr"
+	"golang.org/x/text/encoding"
+	"golang.org/x/text/encoding/ianaindex"
+	"golang.org/x/text/transform"
 )
 
 // ReadAll read all data from resp and close resp.Body
 func ReadAll(resp *http.Response) (b []byte, err error) {
 	defer func() {
-		err = resp.Body.Close()
+		if errClose := resp.Body.Close(); errClose != nil {
+			err = multierr.Append(err, errClose)
+		}
+	}()
+	b, err = io.ReadAll(resp.Body)
+	return
+}
+
+// ReadString read string from resp.Body and close resp.Body
+func ReadString(resp *http.Response) (s string, err error) {
+	defer func() {
+		if errClose := resp.Body.Close(); errClose != nil {
+			err = multierr.Append(err, errClose)
+		}
 	}()
 	var bodyReader io.Reader
 	bodyReader = resp.Body
@@ -32,30 +46,24 @@ func ReadAll(resp *http.Response) (b []byte, err error) {
 		}
 		bodyReader = transform.NewReader(bodyReader, enc.NewDecoder())
 	}
-	b, err = ioutil.ReadAll(bodyReader)
+	b, err := io.ReadAll(bodyReader)
+	s = string(b)
 	return
 }
 
-// ReadString read string from resp.Body and close resp.Body
-func ReadString(resp *http.Response) (string, error) {
-	b, err := ReadAll(resp)
-	if err != nil {
-		return "", err
-	}
-	return string(b), err
-}
-
 // ReadJson read json from resp.Body and close resp.Body
-func ReadJson(resp *http.Response, v interface{}) (err error) {
+func ReadJson(resp *http.Response, v any) (err error) {
 	defer func() {
-		err = resp.Body.Close()
+		if errClose := resp.Body.Close(); errClose != nil {
+			err = multierr.Append(err, errClose)
+		}
 	}()
 	err = json.NewDecoder(resp.Body).Decode(v)
 	return
 }
 
-// ReadFile save file from resp.Body and close resp.Body
-func ReadFile(resp *http.Response, name string) (written int64, err error) {
+// SaveFile save file from resp.Body and close resp.Body
+func SaveFile(resp *http.Response, name string) (written int64, err error) {
 	var f *os.File
 	f, err = fileutil.OpenWrite(name)
 	if err != nil {
@@ -68,11 +76,13 @@ func ReadFile(resp *http.Response, name string) (written int64, err error) {
 	return
 }
 
-// CopyTo copy to dst from resp.Body and close resp.Body
-func CopyTo(resp *http.Response, dst io.Writer) (written int64, err error) {
+// CopyTo copy to dest from resp.Body and close resp.Body
+func CopyTo(resp *http.Response, dest io.Writer) (written int64, err error) {
 	defer func() {
-		err = resp.Body.Close()
+		if errClose := resp.Body.Close(); errClose != nil {
+			err = multierr.Append(err, errClose)
+		}
 	}()
-	written, err = io.Copy(dst, resp.Body)
+	written, err = io.Copy(dest, resp.Body)
 	return
 }

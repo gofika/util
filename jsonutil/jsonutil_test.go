@@ -1,7 +1,7 @@
 package jsonutil
 
 import (
-	"io/ioutil"
+	"os"
 	"path"
 	"testing"
 
@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	tempDir, _ = ioutil.TempDir("", "util")
+	tempDir, _ = os.MkdirTemp("", "util")
 )
 
 type Foo struct {
@@ -53,7 +53,7 @@ func TestSaveFileIndent(t *testing.T) {
 		return
 	}
 	defer fileutil.Delete(tempName)
-	data, err := ioutil.ReadFile(tempName)
+	data, err := os.ReadFile(tempName)
 	if !assert.Nil(t, err) {
 		return
 	}

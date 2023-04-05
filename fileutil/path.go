@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 )
 
-// CurrentDir return current path
+// CurrentDir return the directory where the program is located.
 func CurrentDir() (currentDir string) {
 	currentDir, _ = filepath.Abs(filepath.Dir(os.Args[0]))
 	return

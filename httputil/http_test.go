@@ -1,8 +1,8 @@
 package httputil
 
 import (
-	"io/ioutil"
 	"net/http"
+	"os"
 	"path"
 	"testing"
 
@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	tempDir, _ = ioutil.TempDir("", "util")
+	tempDir, _ = os.MkdirTemp("", "util")
 )
 
 func TestReadString(t *testing.T) {
@@ -45,7 +45,7 @@ func TestReadJson(t *testing.T) {
 	assert.Equal(t, respBody.Url, "https://httpbin.org/get")
 }
 
-func TestReadFile(t *testing.T) {
+func TestSaveFile(t *testing.T) {
 	resp, err := http.Get("https://httpbin.org/get")
 	if !assert.Nil(t, err) {
 		return
@@ -55,7 +55,7 @@ func TestReadFile(t *testing.T) {
 	}
 	var respBody ResponseBody
 	tempName := path.Join(tempDir, "foo.json")
-	_, err = ReadFile(resp, tempName)
+	_, err = SaveFile(resp, tempName)
 	if !assert.Nil(t, err) {
 		return
 	}

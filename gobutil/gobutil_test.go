@@ -1,7 +1,7 @@
 package gobutil
 
 import (
-	"io/ioutil"
+	"os"
 	"path"
 	"testing"
 
@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	tempDir, _ = ioutil.TempDir("", "util")
+	tempDir, _ = os.MkdirTemp("", "util")
 )
 
 type Foo struct {

@@ -1,7 +1,7 @@
 package fileutil
 
 import (
-	"io/ioutil"
+	"os"
 	"path"
 	"testing"
 
@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	tempDir, _ = ioutil.TempDir("", "util")
+	tempDir, _ = os.MkdirTemp("", "util")
 )
 
 func TestWriteFile(t *testing.T) {
@@ -23,7 +23,7 @@ func TestWriteFile(t *testing.T) {
 	if !assert.True(t, IsExist(tempName)) {
 		return
 	}
-	rData, err := ioutil.ReadFile(tempName)
+	rData, err := os.ReadFile(tempName)
 	if !assert.Nil(t, err) {
 		return
 	}

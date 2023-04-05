@@ -2,12 +2,13 @@ package gobutil
 
 import (
 	"encoding/gob"
-	"github.com/gofika/util/fileutil"
 	"os"
+
+	"github.com/gofika/util/fileutil"
 )
 
 // ReadFile read struct from gob stream file
-func ReadFile(filename string, e interface{}) error {
+func ReadFile(filename string, e any) error {
 	f, err := os.Open(filename)
 	if err != nil {
 		return err
@@ -21,7 +22,7 @@ func ReadFile(filename string, e interface{}) error {
 }
 
 // WriteFile write struct to gob stream file
-func WriteFile(filename string, e interface{}) error {
+func WriteFile(filename string, e any) error {
 	f, err := fileutil.OpenWrite(filename)
 	if err != nil {
 		return err

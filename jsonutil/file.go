@@ -2,12 +2,13 @@ package jsonutil
 
 import (
 	"encoding/json"
-	"github.com/gofika/util/fileutil"
 	"os"
+
+	"github.com/gofika/util/fileutil"
 )
 
 // ReadFile read struct from json file
-func ReadFile(filename string, e interface{}) error {
+func ReadFile(filename string, e any) error {
 	f, err := os.Open(filename)
 	if err != nil {
 		return err
@@ -21,7 +22,7 @@ func ReadFile(filename string, e interface{}) error {
 }
 
 // WriteFile write struct to json file
-func WriteFile(filename string, e interface{}) error {
+func WriteFile(filename string, e any) error {
 	f, err := fileutil.OpenWrite(filename)
 	if err != nil {
 		return err
@@ -34,7 +35,7 @@ func WriteFile(filename string, e interface{}) error {
 }
 
 // WriteFileIndent write struct to json file with indent
-func WriteFileIndent(filename string, e interface{}, indent string) error {
+func WriteFileIndent(filename string, e any, indent string) error {
 	f, err := fileutil.OpenWrite(filename)
 	if err != nil {
 		return err
